@@ -1,0 +1,23 @@
+streamlit
+transformers
+torch
+google-auth
+google-auth-oauthlib
+google-api-python-client
+beautifulsoup4
+nltk
+email-validator
+Flask
+beautifulsoup4
+google-api-python-client
+google-auth-httplib2
+PyJWT
+twilio
+nltk
+scikit-learn
+keras
+h5py
+joblib
+numpy # Asegura que esté instalado, las versiones recientes suelen funcionar
+python-dotenv # Para cargar la API Key de forma segura
+google-generativeai # La librería oficial de Google para Gemini
