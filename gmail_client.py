@@ -99,11 +99,11 @@ class GmailClient:
             message['subject'] = subject
             
             if in_reply_to_id:
-                # Si el ID ya tiene los <> se usa directamente, si no, se añaden.
+                
                 if not in_reply_to_id.startswith('<') and not in_reply_to_id.endswith('>'):
                     in_reply_to_id = f"<{in_reply_to_id}>"
                 message['In-Reply-To'] = in_reply_to_id
-                message['References'] = in_reply_to_id # Añadir References para un mejor threading
+                message['References'] = in_reply_to_id 
 
             raw_message = base64.urlsafe_b64encode(message.as_bytes()).decode('utf-8')
             
@@ -113,7 +113,7 @@ class GmailClient:
             ).execute()
             
             print(f"Correo enviado a {to_email}. Message Id: {sent_message['id']}")
-            return sent_message # Retorna la información del mensaje enviado
+            return sent_message 
         except HttpError as error:
             print(f"Error al enviar correo: {error}")
-            return None # Retorna None en caso de error
+            return None
