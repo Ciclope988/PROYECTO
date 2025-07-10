@@ -2,13 +2,12 @@ from flask import Flask, request, jsonify, render_template
 from gmail_client import GmailClient
 from resumen_ia import ResumidorEmails
 from spam_detector import SpamDetector
-from respondedor_gemini import GeminiAssistant # <-- Importa la clase renombrada
+from respondedor_gemini import GeminiAssistant # 
 from bs4 import BeautifulSoup
 import email.utils
 import os
 import json
 from datetime import datetime
-# Importaciones necesarias para Gmail API
 from google.oauth2.credentials import Credentials
 from google_auth_oauthlib.flow import InstalledAppFlow
 from google.auth.transport.requests import Request
@@ -22,10 +21,9 @@ app = Flask(__name__)
 # Instancia de las clases
 resumidor = ResumidorEmails()
 detector_spam = SpamDetector()
-gemini_assistant = GeminiAssistant() # <-- ¡Usa la nueva instancia de GeminiAssistant!
+gemini_assistant = GeminiAssistant() 
 
-# ... (tus funciones limpiar_html, guardar_resumen_urgente, dominios_excluidos, index) ...
-# La función 'es_urgente' que usaba palabras clave será reemplazada.
+
 def limpiar_html(html):
     if not html:
         return ""
@@ -95,20 +93,20 @@ def procesar():
                 print(f"Correo de {correo_remitente} detectado como SPAM. Ignorando.")
                 continue
 
-            # --- ¡NUEVO! Detección de urgencia con Gemini ---
+           
             print(f"Analizando urgencia del correo de {correo_remitente} con Gemini...")
             urgente = gemini_assistant.es_urgente_con_gemini(asunto_original, texto_para_procesar)
             
-            resumen = resumidor.resumir_texto(texto_para_procesar) # Tu resumidor BART
+            resumen = resumidor.resumir_texto(texto_para_procesar) 
 
-            respuesta_auto = "No generada/enviada" # Inicializar la variable
+            respuesta_auto = "No generada/enviada" 
 
             if urgente and resumen.strip():
                 guardar_resumen_urgente(correo_remitente, resumen, prob_spam, texto_para_procesar)
 
                 print(f"Detectado correo URGENTE de {correo_remitente}. Generando respuesta automática con Gemini...")
                 
-                respuesta_auto = gemini_assistant.generar_respuesta( # <-- Llama a Gemini para la respuesta
+                respuesta_auto = gemini_assistant.generar_respuesta( 
                     asunto_original,
                     correo_remitente,
                     texto_para_procesar,
