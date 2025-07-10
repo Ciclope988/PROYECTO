@@ -12,16 +12,11 @@ class GeminiAssistant:
 
         genai.configure(api_key=api_key)
 
-        # --- NUEVO: Verificar modelos disponibles ---
         self._print_available_models() 
 
-        # Intenta usar un modelo que sabemos que es para texto y generación
-        # Si 'gemini-pro' sigue dando error, podrías intentar con 'gemini-1.5-flash-latest' 
-        # o 'gemini-1.0-pro' si ves que están disponibles.
-        self.model = genai.GenerativeModel('models/gemini-2.5-flash') # <-- USANDO UN MODELO ACTUALIZADO
+        self.model = genai.GenerativeModel('models/gemini-2.5-flash') 
 
-        print(f"Modelo {self.model.model_name} configurado y listo para usar.") # Cambié el print para que muestre el nombre real del modelo usado.
-
+        print(f"Modelo {self.model.model_name} configurado y listo para usar.") 
 
     def _print_available_models(self):
         """Imprime los modelos disponibles y sus capacidades."""
@@ -32,7 +27,7 @@ class GeminiAssistant:
         print("------------------------------------------\n")
 
     def generar_respuesta(self, asunto, remitente, cuerpo_completo, resumen_existente, temperature=0.7):
-        # ... (tu código actual para generar respuesta, no cambia) ...
+       
         prompt = f"""Eres un asistente de soporte al cliente. Tu tarea es leer un correo electrónico urgente y generar una respuesta concisa, útil y profesional para el remitente.
 
 Datos del correo urgente:
@@ -87,11 +82,10 @@ Cuerpo del correo:
             print(f"Error al determinar urgencia con Gemini API: {e}. Asumiendo no urgente.")
             return False
 
-# Ejemplo de uso (para probar esta clase independientemente):
+
 if __name__ == '__main__':
     assistant = GeminiAssistant()
     
-    # Prueba de generación de respuesta
     asunto_ej = "Urgente: Problema con mi pedido #XYZ"
     remitente_ej = "cliente@ejemplo.com"
     cuerpo_ej = "Estimados, mi pedido #XYZ no ha llegado y lo necesito imperiosamente. ¿Podrían verificar el estado y la fecha de entrega? Estoy muy preocupado."
@@ -107,7 +101,6 @@ if __name__ == '__main__':
     print("\n--- Respuesta Generada ---")
     print(respuesta)
 
-    # Prueba de detección de urgencia
     print("\n--- Probando detección de urgencia ---")
     correo_urgente_test = {
         "asunto": "ACCIÓN REQUERIDA: Aprobación de presupuesto",
